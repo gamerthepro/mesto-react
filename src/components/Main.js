@@ -39,4 +39,6 @@ const Main = ({onEditProfile, onAddPlace, onEditAvatar, onCardClick}) => {
 	);
 }
 
+
+
 export default Main
