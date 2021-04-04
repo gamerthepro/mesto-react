@@ -44,17 +44,17 @@ const App = () => {
 				<Footer/>
 
 				<PopupWithForm
-               title={"Вы уверены?"}
+               title="Вы уверены?"
                name={"delete_card"}
-               textBtn={"Да"}
+               textBtn="Да"
                isOpen={false}
                onClose={closeAllPopups}
             ></PopupWithForm>
 
 				<PopupWithForm
-               title={"Обновить аватар"}
+               title="Обновить аватар"
                name={"type_avatar"}
-               textBtn={"Сохранить"}
+               textBtn="Сохранить"
                isOpen={isEditAvatarPopupOpen}
                onClose={closeAllPopups}>
 
@@ -70,9 +70,9 @@ const App = () => {
 					</PopupWithForm>
 
 				<PopupWithForm
-               title={"Редактировать профиль"}
+               title="Редактировать профиль"
                name={"type_edit"}
-					textBtn={"Сохранить"}
+					textBtn="Сохранить"
                isOpen={isEditProfilePopupOpen}
                onClose={closeAllPopups}>
 							
@@ -102,9 +102,9 @@ const App = () => {
 				</PopupWithForm>
 
 				<PopupWithForm
-               title={"Новое место"}
+               title="Новое место"
                name={"type_add"}
-               textBtn={"Создать"}
+               textBtn="Создать"
                isOpen={isAddPlacePopupOpen}
                onClose={closeAllPopups}>
 

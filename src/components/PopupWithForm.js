@@ -2,7 +2,7 @@ import React from 'react';
 
 const PopupWithForm = ({title, name, children, isOpen, textBtn, onClose}) => {
 
-   let popupIsVisible = isOpen ? 'popup__open' : '';
+   const popupIsVisible = isOpen ? 'popup__open' : '';
 
 	return(
 		<div className={`popup popup_${name} ${popupIsVisible}`}>
