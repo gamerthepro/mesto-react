@@ -5,43 +5,34 @@ import Footer from "./Footer";
 import PopupWithForm from "./PopupWithForm";
 import ImagePopup from "./ImagePopup";
 
-
-
 const App = () => {
 
+	const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
 	const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
 	const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
-	const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
-	const [selectedCard, setSelectedCard] = useState(null);
-
-	//Открыть и редактировать аватар
+	const [selectedCard, setSelectedCard] = useState({});
+	
+	const handleCardClick = (data) => {
+		setSelectedCard(data);
+	}
 	const handleEditAvatarClick = () => {
 		setIsEditAvatarPopupOpen(true);
 	}
-
-	//Открыть и редактировать проыиль
 	const handleEditProfileClick = () => {
 		setIsEditProfilePopupOpen(true);
 	}
-
-	//Открыть и добавить карточку с местом
 	const handleAddPlaceClick = () => {
 		setIsAddPlacePopupOpen(true);
 	}
-
-	const handleCardClick = (card) => {
-		setSelectedCard(card);
-	}
-
 	const closeAllPopups = () => {
 		setIsEditAvatarPopupOpen(false);
 		setIsEditProfilePopupOpen(false);
 		setIsAddPlacePopupOpen(false);
-		setSelectedCard(null);
+		setSelectedCard({})
 	}
 
 	return (
-		<body className="page">
+		<div className="page">
 			<div className="page__container">
 				<Header/>
 				<Main
@@ -49,7 +40,8 @@ const App = () => {
 					onEditAvatar={handleEditAvatarClick}
 					onEditProfile={handleEditProfileClick}
 					onCardClick={handleCardClick}
-				/><Footer/>
+				/>
+				<Footer/>
 
 				<PopupWithForm
                title={"Вы уверены?"}
@@ -72,7 +64,8 @@ const App = () => {
 						placeholder="Ссылка на картинку"
 						required
 						id="url-avatar"
-						autocomplete="off"/>
+						autoComplete="off"
+						/>
 					<span className="popup__error" id="url-avatar-error"></span>
 					</PopupWithForm>
 
@@ -86,24 +79,24 @@ const App = () => {
 					<input className="popup__input popup__input_edit_name" 
 						id='name-input' 
 						type="text" 
-						minlength="2"
-						maxlength="40"
-						autocomplete="off"
+						minLength="2"
+						maxLength="40"
+						autoComplete="off"
 						name="porfolioName"
-						value="Жак-Ив Кусто"
+						defaultValue="Жак-Ив Кусто"
 						placeholder="Имя"
-						novalidate
+						noValidate
 						required/>
 					<span className='popup__error' id='name-input-error'></span>
 					<input className="popup__input popup__input_edit_job" 
 						id='job-input'
 						type="text"
-						minlength="2"
-						maxlength="200"
+						minLength="2"
+						maxLength="200"
 						name="porfolioJob"
-						value="Исследователь океана"
+						defaultValue="Исследователь океана"
 						placeholder="О себе"
-						novalidate
+						noValidate
 						required/>
 					<span className='popup__error' id='job-input-error'></span>
 				</PopupWithForm>
@@ -120,10 +113,10 @@ const App = () => {
 						placeholder="Название" 
 						type="text" 
 						name="name" 
-						value="" 
-						minlength="2"
-						maxlength="30"
-						novalidate 
+						defaultValue="" 
+						minLength="2"
+						maxLength="30"
+						noValidate 
 						required/>
 					<span className='popup__error' id='name-img-error'></span>
 					<input className="popup__input popup__input_img_link" 
@@ -131,22 +124,21 @@ const App = () => {
 						placeholder="Ссылка на картинку" 
 						type="url" 
 						name="link" 
-						value="" 
-						novalidate 
+						defaultValue="" 
+						noValidate 
 						required/>
 					<span className='popup__error' id='img-link-error'></span>
 				</PopupWithForm>
 
-				<ImagePopup>
+				<ImagePopup
 					card={selectedCard}
-               isOpen={selectedCard !== null}
                onClose={closeAllPopups}
-				</ImagePopup>
+				/>
 
 
 			</div>
 
-		</body>
+		</div>
 	);
 }
 

@@ -1,17 +1,35 @@
 import React, {useState, useEffect} from 'react';
-import {api} from "../utils/api";
-import profile_img from "../images/image.png";
+import api from "../utils/api";
 import Card from "./Card";
 
 const Main = ({onEditProfile, onAddPlace, onEditAvatar, onCardClick}) => {
 
-	const [userName, setUserName] = useState("Жак-Ив Кусто");
-	const [userDescription, setUserDescription] = useState("Исследователь океана");
-	const [userAvatar, setUserAvatar] = useState(profile_img);
+	const [userName, setUserName] = useState('');
+	const [userDescription, setUserDescription] = useState('');
+	const [userAvatar, setUserAvatar] = useState('');
 	const [cards, setCards] = useState([]);
 
-
-
+	const errorApi = err => {
+			console.error(err);
+			};
+		useEffect(() => {
+			api
+			.getUserInfoServ()
+			.then(data => {
+				setUserName(data.name)
+				setUserDescription(data.about)
+				setUserAvatar(data.avatar)
+			})
+			.catch(errorApi)
+		}, [])
+		useEffect(() => {
+			api
+			.getCardList()
+			.then(data => {
+				setCards(data)
+			})
+			.catch(errorApi)
+	}, [])
 
 	return (
 		<main className="content page__content">
@@ -32,13 +50,17 @@ const Main = ({onEditProfile, onAddPlace, onEditAvatar, onCardClick}) => {
 			</section>
 			<section className="elements">
 				<ul className="elements__contener">
-
+					{cards.map((item) => {
+                  return <Card
+                     key={item._id}
+                     card={item}
+                     onCardClick={onCardClick}
+                  />
+               })}
 				</ul>
 			</section>
 		</main>
 	);
 }
 
-
-
-export default Main
+export default Main;

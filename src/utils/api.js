@@ -1,80 +1,81 @@
-	const onPromise = res => {
-	if (res.ok) {
+	const onResultQuery = res => {
+		if (res.ok) {
 		return res.json();
+		}
+		return Promise.reject(`Ошибка: ${res.status}`);
 	}
-	return Promise.reject(`Ошибка: ${res.status}`);
-}
 
-export default class Api {
-		constructor({ url, headers }) {
+	class Api {
+	constructor({ url, headers }) {
 		this._url = url;
 		this._headers = headers;
 	}
 
 	getUserInfoServ() {
 		return fetch(`${this._url}users/me`, {
-			headers: this._headers
+		headers: this._headers
 		})
-		.then(onPromise)
+		.then(onResultQuery)
 	}
 
-	saveUserInfo(data) {
+	saveUserInfoServ(data) {
 		return fetch(`${this._url}users/me`, {
-			method: 'PATCH',
-			headers: this._headers,
-			body: JSON.stringify(data)
+		method: 'PATCH',
+		headers: this._headers,
+		body: JSON.stringify(data)
 		})
-		.then(onPromise)
+		.then(onResultQuery)
 	}
 
 	getCardList() {
 		return fetch(`${this._url}cards`, {
-			headers: this._headers
+		headers: this._headers
 		})
-		.then(onPromise)
+		.then(onResultQuery)
 	}
 
 	saveNewCard(data) {
 		return fetch(`${this._url}cards`, {
-			method: 'POST',
-			headers: this._headers,
-			body: JSON.stringify(data)
+		method: 'POST',
+		headers: this._headers,
+		body: JSON.stringify(data)
 		})
-		.then(onPromise)
+		.then(onResultQuery)
 	}
 
 	removeCard(cardId) {
 		return fetch(`${this._url}cards/${cardId}`, {
-			method: 'DELETE',
-			headers: this._headers,
+		method: 'DELETE',
+		headers: this._headers,
 		})
-		.then(onPromise)
+		.then(onResultQuery)
 	}
 
-	addLike(cardId) {
+	changeLikeCardStatus(cardId, state) {
 		return fetch(`${this._url}cards/likes/${cardId}`, {
-			method: 'PUT',
-			headers: this._headers,
+		method: state ? 'PUT' : 'DELETE',
+		headers: this._headers,
 		})
-		.then(onPromise)
-	}
-
-	delLike(cardId) {
-		return fetch(`${this._url}cards/likes/${cardId}`, {
-			method: 'DELETE',
-			headers: this._headers,
-		})
-		.then(onPromise)
+		.then(onResultQuery)
 	}
 
 	updateAvatar(link) {
 		return fetch(`${this._url}users/me/avatar`, {
-			method: 'PATCH',
-			headers: this._headers,
-			body: JSON.stringify(link)
-	})
-	.then(onPromise)
+		method: 'PATCH',
+		headers: this._headers,
+		body: JSON.stringify(link)
+		})
+		.then(onResultQuery)
 	}
-}
+	}
 
-export const api = new Api('https://mesto.nomoreparties.co/v1/cohort-20', '4707d041-e92a-46fe-bfe7-19e26cb8b84c');
+	const apiConfig = {
+		url: 'https://mesto.nomoreparties.co/v1/cohort-20/',
+		headers: {
+			authorization: '4707d041-e92a-46fe-bfe7-19e26cb8b84c',
+			'Content-Type': 'application/json'
+			}
+		}
+		
+		const api = new Api(apiConfig);
+		export default api;
