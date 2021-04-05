@@ -1,10 +1,18 @@
 import React, { useState } from 'react';
 import PopupWithForm from './PopupWithForm';
 
-function AddPlacePopup({isOpen, onClose, onAddPlace}) {
+const AddPlacePopup = ({isOpen, onClose, onAddPlace}) => {
 
 	const [name, setName] = useState('');
 	const [link, setLink] = useState('');
+
+	const handleChangeName = (evt) => {
+		setName(evt.target.value);
+	}
+
+	const handleChangeLink = (evt) => {
+		setLink(evt.target.value);
+	}
 
 	const handleSubmit = e => {
 		e.preventDefault();
@@ -20,7 +28,9 @@ function AddPlacePopup({isOpen, onClose, onAddPlace}) {
          name={"add"}
          textBtn="Создать"
          isOpen={isOpen}
-         onClose={onClose}>
+         onClose={onClose}
+			onSubmit={handleSubmit}
+			>
 
 			<input className="popup__input popup__input_edit_name popup__input_img_name" 
 				id='name-img'  
@@ -31,8 +41,8 @@ function AddPlacePopup({isOpen, onClose, onAddPlace}) {
 				maxLength="30"
 				noValidate 
 				required
-				value={name}
-				onChange={e => setName(e.target.value)}
+				value={name || ''}
+				onChange={handleChangeName}
 				/>
 			<span className='popup__error' id='name-img-error'></span>
 			<input className="popup__input popup__input_img_link" 
@@ -41,9 +51,9 @@ function AddPlacePopup({isOpen, onClose, onAddPlace}) {
 				type="url" 
 				name="link" 
 				noValidate
-				value={link}
+				value={link || ''}
 				required
-				onChange={e => setLink(e.target.value)}
+				onChange={handleChangeLink}
 				/>
 			<span className='popup__error' id='img-link-error'></span>
 		</PopupWithForm>

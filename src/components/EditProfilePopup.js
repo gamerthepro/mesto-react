@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext} from 'react';
 import PopupWithForm from './PopupWithForm';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 function EditProfilePopup ({isOpen, onClose, onUpdateUser}) {
 
-	const currentUser = React.useContext(CurrentUserContext);
+	const currentUser = useContext(CurrentUserContext);
 
 	const [name, setName] = useState('');
 	const [description, setDescription] = useState('');
@@ -15,6 +15,14 @@ function EditProfilePopup ({isOpen, onClose, onUpdateUser}) {
 			name,
 			about: description,
 		});
+	}
+
+	const handleChangeName = (evt) => {
+		setName(evt.target.value);
+	}
+
+	const handleChangeDescription = (evt) => {
+		setDescription(evt.target.value);
 	}
 
 	useEffect(() => {
@@ -42,7 +50,7 @@ function EditProfilePopup ({isOpen, onClose, onUpdateUser}) {
 						noValidate
 						required
 						value={name || ''}
-						onChange={e => setName(e.target.value)}
+						onChange={handleChangeName}
 						/>
 					<span className='popup__error' id='name-input-error'></span>
 					<input className="popup__input popup__input_edit_job" 
@@ -55,7 +63,7 @@ function EditProfilePopup ({isOpen, onClose, onUpdateUser}) {
 						noValidate
 						required
 						value={description || ''}
-						onChange={e => setDescription(e.target.value)}
+						onChange={handleChangeDescription}
 						/>
 					<span className='popup__error' id='job-input-error'></span>
 				</PopupWithForm>
