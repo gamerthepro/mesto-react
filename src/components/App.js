@@ -22,6 +22,28 @@ const App = () => {
 	const [selectedCard, setSelectedCard] = useState({});
 	const [selectedDelCard, setSelectedDelCard] = useState('');
 
+	const handleCardClick = (data) => {
+		setSelectedCard(data);
+	}
+
+	const handleDeleteClick = (cardId) => {
+		setIsConfirmPopupOpen(!isConfirmPopupOpen);
+		setSelectedDelCard(cardId)
+	}
+
+	const handleEditAvatarClick = () => {
+		setIsEditAvatarPopupOpen(true);
+	}
+
+	const handleEditProfileClick = () => {
+		setIsEditProfilePopupOpen(true);
+	}
+
+	const handleAddPlaceClick = () => {
+		setIsAddPlacePopupOpen(true);
+	}
+
+
 	const errorApi = err => {
 		console.error(err);
 		};
@@ -43,27 +65,6 @@ const App = () => {
 			})
 			.catch(errorApi)
 	}, [])
-
-	const handleCardClick = (data) => {
-		setSelectedCard(data);
-	}
-
-	const handleDeleteClick = (cardId) => {
-		setIsConfirmPopupOpen(!isConfirmPopupOpen);
-		setSelectedDelCard(cardId)
-	}
-
-	const handleEditAvatarClick = () => {
-		setIsEditAvatarPopupOpen(true);
-	}
-
-	const handleEditProfileClick = () => {
-		setIsEditProfilePopupOpen(true);
-	}
-
-	const handleAddPlaceClick = () => {
-		setIsAddPlacePopupOpen(true);
-	}
 
 	const handleUpdateUser = (data) => {
 		api
