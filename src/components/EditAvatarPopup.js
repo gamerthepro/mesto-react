@@ -3,11 +3,11 @@ import PopupWithForm from './PopupWithForm';
 
 function EditAvatarPopup({isOpen, onClose, onUpdateAvatar}) {
 
-	const {linkRef} = useRef();
+	const urlRef = useRef();
 
 	const handleSubmit = e => {
 		e.preventDefault();
-		onUpdateAvatar({avatar: linkRef.current.value});
+		onUpdateAvatar({avatar: urlRef.current.value});
 	}
 
 	return (
@@ -28,7 +28,7 @@ function EditAvatarPopup({isOpen, onClose, onUpdateAvatar}) {
 				id="url-avatar"
 				autoComplete="off"
 				defaultValue=""
-				ref={linkRef}
+				ref={urlRef}
 				/>
 			<span className="popup__error" id="url-avatar-error"></span>
 		</PopupWithForm>
