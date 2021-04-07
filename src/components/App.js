@@ -10,7 +10,7 @@ import EditAvatarPopup from './EditAvatarPopup';
 import AddPlacePopup from './AddPlacePopup';
 import ConfirmDeletePopup from './ConfirmDeletePopup';
 
-const App = () => {
+function App() {
 
 	const [currentUser, setCurrentUser] = useState({});
 	const [cards, setCards] = useState([]);
